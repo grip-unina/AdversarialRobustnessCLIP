@@ -1,6 +1,6 @@
-# AdversarialRobustnessCLIP
+# Exploring the Adversarial Robustness of CLIP
 
-[![Github](https://img.shields.io/badge/Github%20webpage-222222.svg?style=for-the-badge&logo=github)](https://github.com/grip-unina/AdversarialRobustnessCLIP)
+[![Github](https://img.shields.io/badge/Github%20webpage-222222.svg?style=for-the-badge&logo=github)](https://grip-unina.github.io/ZED/)
 [![arXiv](https://img.shields.io/badge/-arXiv-B31B1B.svg?style=for-the-badge)](https://arxiv.org/abs/2407.19553)
 [![GRIP](https://img.shields.io/badge/-GRIP-0888ef.svg?style=for-the-badge)](https://www.grip.unina.it)
 
@@ -20,20 +20,91 @@ The dataset can be downloaded [here](https://www.grip.unina.it/download/prog/Adv
 bash ./get_dataset.sh OUTPUT_DIR_PATH
 ```
 
-## Code
-Coming Soon
+## Detectors' weights
+The weights can be downloaded [here](https://www.grip.unina.it/download/prog/AdversarialRobustnessCLIP/weights_AdversarialRobustnessCLIP.zip) or using the following script:
+
+```
+bash ./get_weights.sh OUTPUT_DIR_PATH
+```
+
+## Setup
+To install the required environment, use Conda:
+
+```
+conda env create -f environment.yml
+```
+
+## Attacks
+
+### Configure attacks
+You can configure the attacks using YAML files located in the configs directory. These files allow you to customize attack parameters and select datasets. Below is an example configuration:
+
+```
+attack_real: True
+real_label: 0
+attack_fake: True
+fake_label: 1
+
+networks:
+  - name: WANG_latent_r50
+  ...
+
+attacks:
+  - name: DIFGSM
+    args:
+      steps: 10
+      eps: 8
+      alpha: 2
+  ...
+```
+
+### Run attacks
+To execute attacks, you can either use the provided run.sh script or run the attack script manually:
+
+```
+python run_attack.py --config ./configs/latent.yaml \
+    --img_csv ./AdversarialRobustnessCLIP/latent/list_images_latent.csv \
+    --dataset_dir ./AdversarialRobustnessCLIP/ \
+    --out_dir ./images/latent
+```
+
+## Metrics
+To evaluate the performance of the attacks, calculate metrics using:
+
+```
+python metrics.py --config ./configs/latent.yaml \
+    --img_csv ./AdversarialRobustnessCLIP/latent/list_images_latent.csv \
+    --dataset_dir ./AdversarialRobustnessCLIP/ \
+    --adv_dir ./images/latent \
+    --res_dir ./res_csv/latent
+```
+
+## FFT
+For frequency domain analysis, save residue FFT using:
+
+```
+python residue_fft.py --config ./configs/latent.yaml \
+    --img_csv ./AdversarialRobustnessCLIP/latent/list_images_latent.csv \
+    --adv_dir ./images/latent \
+    --out_dir ./fft_images/latent
+```
 
 ## License
 
-Copyright (c) 2024 Image Processing Research Group of University Federico II of Naples ('GRIP-UNINA'). 
-
-All rights reserved.
-
-This software should be used, reproduced and modified only for informational and nonprofit purposes.
-
-By downloading and/or using any of these files, you implicitly agree to all the
-terms of the license, as specified in the document LICENSE.md
-(included in this package)
+Copyright 2024 Image Processing Research Group of University Federico
+II of Naples ('GRIP-UNINA'). All rights reserved.
+                        
+Licensed under the Apache License, Version 2.0 (the "License");       
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at                    
+                                           
+    http://www.apache.org/licenses/LICENSE-2.0
+                                                      
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,    
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.                         
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ## Bibtex 
 
