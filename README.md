@@ -37,7 +37,7 @@ conda env create -f environment.yml
 ## Attacks
 
 ### Configure attacks
-You can configure the attacks using YAML files located in the configs directory. These files allow you to customize attack parameters and select datasets. Below is an example configuration:
+You can configure the attacks using YAML files located in the configs directory. These files allow you to customize attack parameters. Below is an example configuration:
 
 ```
 attack_real: True
@@ -59,7 +59,7 @@ attacks:
 ```
 
 ### Run attacks
-To execute attacks, you can either use the provided run.sh script or run the attack script manually:
+To execute attacks, you can either use the provided [run.sh](run.sh) script or run the attack manually:
 
 ```
 python run_attack.py --config ./configs/latent.yaml \
