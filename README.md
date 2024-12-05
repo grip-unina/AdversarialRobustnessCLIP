@@ -17,14 +17,14 @@ In recent years, many forensic detectors have been proposed to detect AI-generat
 The dataset can be downloaded [here](https://www.grip.unina.it/download/prog/AdversarialRobustnessCLIP/AdversarialRobustnessCLIP.zip) or using the following script:
 
 ```
-bash ./get_dataset.sh OUTPUT_DIR_PATH
+bash ./scripts/get_dataset.sh OUTPUT_DIR_PATH
 ```
 
 ## Detectors' weights
 The weights can be downloaded [here](https://www.grip.unina.it/download/prog/AdversarialRobustnessCLIP/weights_AdversarialRobustnessCLIP.zip) or using the following script:
 
 ```
-bash ./get_weights.sh OUTPUT_DIR_PATH
+bash ./scripts/get_weights.sh OUTPUT_DIR_PATH
 ```
 
 ## Setup
@@ -59,7 +59,7 @@ attacks:
 ```
 
 ### Run attacks
-To execute attacks, you can either use the provided [run.sh](run.sh) script or run the attack manually:
+To execute attacks, you can either use the provided [run_attack.sh](./scripts/run_attack.sh) script or run the attack manually:
 
 ```
 python run_attack.py --config ./configs/latent.yaml \
@@ -80,7 +80,7 @@ python metrics.py --config ./configs/latent.yaml \
 ```
 
 ## FFT
-For frequency domain analysis, save residue FFT using:
+For frequency domain analysis, save average power spectra using:
 
 ```
 python residue_fft.py --config ./configs/latent.yaml \
