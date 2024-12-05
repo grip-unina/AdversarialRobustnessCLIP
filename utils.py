@@ -19,7 +19,6 @@ import yaml
 import numpy as np
 import torch
 from PIL import Image
-from pathlib import Path
 
 def read_config(yaml_path = 'attacks.yaml'):
     with open(yaml_path, 'r') as file:

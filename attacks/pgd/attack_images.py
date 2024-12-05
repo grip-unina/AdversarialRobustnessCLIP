@@ -1,5 +1,5 @@
 import torch
-from .pgd import PGDLmask, PGDmask
+from .pgd import PGDL, PGD
 import numpy as np
 from tqdm import tqdm
 from PIL import Image
@@ -15,9 +15,9 @@ def pgd_attack(model, my_atk: dict):
     steps = args['steps']
 
     if atk_name == 'pgdE':
-        atk = PGDLmask(model, eps=eps, alpha=eps/5.0, steps=steps, p=2)
+        atk = PGDL(model, eps=eps, alpha=eps/5.0, steps=steps, p=2)
     elif atk_name == 'pgdI':
-        atk = PGDmask(model, eps=eps/255.0, alpha=eps/255.0/4.0, steps=steps)
+        atk = PGD(model, eps=eps/255.0, alpha=eps/255.0/4.0, steps=steps)
     else:
         raise ValueError(f"The attack '{atk_name}' is not supported.")
     return atk
