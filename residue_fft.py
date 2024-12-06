@@ -33,8 +33,8 @@ def save_fft_uni(atk_name, list_net, adv_dir, out_dir):
             paths = []
             for label in range(2):
                 noise_dir = Path(adv_dir, 'noise', namenetA, atk_name, f'adv{label}')
-                noises = len(list(noise_dir.glob('*.npy')))
-                assert noises > 0, f'No adv. noise  in {noise_dir}'
+                noises = list(noise_dir.glob('*.npy'))
+                assert len(noises) > 0, f'No adv. noise  in {noise_dir}'
                 paths.append(max(noises, key=lambda x: float(x.stem)))
 
             res = (np.load(paths[0]) + np.load(paths[1]))/2
@@ -53,11 +53,11 @@ def save_fft(atk_name, list_net, img_df, adv_dir, out_dir):
         out_path = Path(out_dir, namenetA + '_ffte.png')
         print(atk_name, namenetA, flush=True)
         if not out_path.exists():
-            list_noise = list() 
-            for index in tqdm.tqdm(img_df.index):
-                for label in range(2):
-                    noise_dir = Path(adv_dir, 'noise', namenetA, atk_name, f'adv{label}')
-                    assert len(img_df) == len(list(noise_dir.glob('*.npy'))), f'Missing adv. noises in {noise_dir}'
+            list_noise = list()
+            for label in range(2):
+                noise_dir = Path(adv_dir, 'noise', namenetA, atk_name, f'adv{label}')
+                assert len(img_df) == len(list(noise_dir.glob('*.npy'))), f'Missing adv. noises in {noise_dir}'
+                for index in img_df.index:
                     npy_path = noise_dir / f"{img_df.loc[index,'name']}.npy"
                     n = np.load(npy_path)
                     #print(n.shape, 255*n.min(), 255*n.max(), n.dtype)
