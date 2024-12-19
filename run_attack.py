@@ -61,7 +61,6 @@ def main(config: str, img_csv: str, dataset_dir: str, out_dir: str, device = 'cu
                 else:
                     model = load_network(namenet).to(device)
                     atk = select_attack_dict(model, attack)
-                    print(f'Model name: {namenet} \nAttack name: {atk_name} \nArgs: {args}')
                     if config['attack_fake']:
                         print('Attacking fake images...')
                         attack_images(atk, config['fake_label'], img_csv, dataset_dir, adv_img_dir, noise_dir)
