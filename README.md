@@ -31,7 +31,7 @@ bash ./scripts/get_weights.sh OUTPUT_DIR_PATH
 To install the required environment, use Conda:
 
 ```
-conda env create -f environment.yml
+conda env create -f environment.yaml
 ```
 
 ## Attacks
@@ -109,10 +109,10 @@ limitations under the License.
 ## Bibtex 
 
 ```
-@article{de2024exploring,
+@article{derosa2024exploring,
   title={Exploring the Adversarial Robustness of CLIP for AI-generated Image Detection},
   author={De Rosa, Vincenzo and Guillaro, Fabrizio and Poggi, Giovanni and Cozzolino, Davide and Verdoliva, Luisa},
-  journal={arXiv preprint arXiv:2407.19553},
+  booktitle={2024 IEEE International Workshop on Information Forensics and Security (WIFS)}, 
   year={2024}
 }
 ```
